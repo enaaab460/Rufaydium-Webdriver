@@ -15,6 +15,7 @@
 #Requires Autohotkey v1.1.33+
 
 #include %A_LineFile%\..\
+#Include WS\WSSession.ahk
 #Include WDM.ahk
 #Include CDP.ahk
 #Include JSON.ahk
@@ -286,17 +287,60 @@ Class Session
 	__Delete()
 	{
 		;this.Quit()
+		if isobject(this.WS)
+			this.WSDisconnect()
 	}
 
 	Quit()
 	{
 		this.Send(this.address ,"DELETE")
+		if isobject(this.WS)
+			this.WSDisconnect()
 	}
 
 	close()
 	{
 		Tabs := this.Send("window","DELETE")
+		if !tabs
+			return
+		if Tabs.error
+			return this.ActiveTab()
 		this.Switch(this.currentTab := tabs[tabs.Length()])
+	}
+
+	WSConnect()
+	{
+		if RegExMatch(this.Debuggeraddress,"\/\/(.*?):(\d+)",$)
+		{
+			This.WS := new WSSession($1, $2, strreplace(this.currenttab,"CDwindow-","/devtools/page/"))
+			this.ws.On("TEXT", ObjBindMethod(this, "Events"))
+		}		
+	}
+
+	Callback(Callback:="")
+	{
+		if this.WS
+		{
+			this.ws.On("TEXT", Func(Callback))	
+		}
+		else
+			MsgBox, ,Rufaydium WebDriver, Unable to registere callback no Websocket connection found
+	}
+
+	WSDisconnect()
+	{
+		This.WS.Disconnect()
+	}
+
+	Events(Event)
+	{
+		outputDebug, % r := event.data.PayloadText
+		r := Json.load(r)
+		if( r.method = "Inspector.detached" && r.params.reason = "target_closed")
+		{
+			MsgBox, ,Rufaydium WebDriver Event,% "Please do not close Tab manually use Session.close()`n`nEvent:" r.method "`nReason:" r.params.reason
+			this.close()
+		}
 	}
 
 	send(url,Method,Payload:= 0,WaitForResponse:=1)
@@ -340,6 +384,13 @@ Class Session
 	{
 		this.currentTab := Tabid
 		this.Send("window","POST",{"handle":Tabid})
+		if isobject(this.WS)
+		{
+			this.WS.disconnect()
+			this.Delete("WS")
+			this.WS := ""
+			this.WSConnect()
+		}	
 	}
 
 	Title
