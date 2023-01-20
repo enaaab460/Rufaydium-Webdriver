@@ -1,4 +1,4 @@
-# Rufaydium-Webdriver V2 Aplha
+# Rufaydium-Webdriver V2 Alpha
 Rufaydium is a WebDriver Library for AutoHotkey V2 working only for chrome browser/chromeDriver for now.
 User have to download chromedriver.exe
 
