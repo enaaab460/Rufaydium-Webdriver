@@ -6,7 +6,7 @@
         this.defineprop( 'element', { get : (this) => element, set : (this, value) => element := value})
     }
 
-	__set( n,a,v) => this.Execute(( IsNumber(v) ? "arguments[0]." n (a.Length > 0 ? "[" RegExReplace(json.stringify(map("obj", a)),'\{"obj":\[(.*)\]\}',"$1") "]":"") " = " v  : "arguments[0]." n (a.Length > 0 ? "[" RegExReplace(json.stringify(map("obj", a)),'\{"obj":\[(.*)\]\}',"$1") "]":"") " = '" v "'" ))
+	__set( n,a,v) => this.Execute(("arguments[0]." n (a.Length > 0 ? "[" RegExReplace(json.stringify(map("obj", a)),'\{"obj":\[(.*)\]\}',"$1") "]":"") " = " (IsNumber(v) ? v : "'" v "'")))
     __get( n,a)	  => this.Execute("return arguments[0]." n . (a.Length > 0 ? "[" RegExReplace(json.stringify(map("obj", a)),'\{"obj":\[(.*)\]\}',"$1") "]":"") )
 	__call(n,a)   => this.Execute("return arguments[0]." n "(" RegExReplace(json.stringify(map("obj", a)),'\{"obj":\[(.*)\]\}',"$1") ")" )
 
