@@ -108,4 +108,7 @@ Class Rufaydium
 			websocketurl := 0
 		return Session(this.DriverUrl "/session/" r["sessionId"], debuggerAddress,This.driver.Name,websocketurl)
 	}
+
+	Exit() => this.Driver.Exit()
+	
 }
