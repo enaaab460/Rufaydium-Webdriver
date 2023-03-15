@@ -28,6 +28,12 @@ class Capabilities
             )
         if(notify = false)
            this.AddexcludeSwitches("enable-automation")
+        this._ucof := false
+        this._hmode := false
+        this._incog := false
+        this._Bidi := false
+        this.olduser := []
+        this._Uprompt := "dismiss"
     }
 
     AddexcludeSwitches(excludeSwitch)
@@ -167,16 +173,15 @@ class Capabilities
      
         get => this._incog
     }
-
-
 }
 
 class ChromeCapabilities extends Capabilities
 {
     setUserProfile(profileName:="Profile 1", userDataDir:=0) ; Default is sample profile used everytime to create new profile 
 	{
-        if this.IncognitoMode
-            return
+        if this.HasProp("IncognitoMode")
+            if this.IncognitoMode
+                return
 		if !userDataDir
 			userDataDir := StrReplace(A_AppData, "\Roaming") "\Local\Google\Chrome\User Data"
         userDataDir := StrReplace(userDataDir, "\", "/")
