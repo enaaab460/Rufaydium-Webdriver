@@ -102,6 +102,11 @@
 	{
 		get => this.Send("source","GET",0,1)
 	}
+	
+	Title
+	{
+		get => this.Send("title","GET")
+	}
 
 	Cookies[CookieMAP]
 	{
@@ -159,13 +164,13 @@
 	findelements(u,v)
 	{
 		e := []
-		for k, element in this.Send("elements","POST",map("using",u,"value",v),1)
+		for k, elements in this.Send("elements","POST",map("using",u,"value",v),1)
 		{
-			for i, elementid in element
-				e[k-1] := Element(this.address "/element/" elementid,i)
+			for i, elementid in elements
+				e.InsertAt(k-1,Element(this.address "/element/" elementid,i))
 		}
 
-		if e.count() > 0
+		if e.Length > 0
 			return e
 		return 0
 	}
