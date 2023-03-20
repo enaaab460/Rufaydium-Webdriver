@@ -93,7 +93,7 @@
 			}
 		}
 
-		if e.count() > 0
+		if e.count > 0
 			return e
 		return 0
 	}
@@ -129,16 +129,16 @@
 		get
 		{	
 			e := []
-			for k, element in this.Execute("return arguments[0].children")
+			for k, elements in this.Execute("return arguments[0].children")
 			{
-				for i, elementid in element
+				for i, elementid in elements
 				{
 					address := RegExReplace(this.address "/element/" elementid,"(\/shadow\/.*)\/element","/element")
 					address := RegExReplace(address "/element/" elementid,"(\/element\/.*)\/element","/element")
 					e[k-1] := Element(address,i)
 				}
 			}
-			if e.count() > 0
+			if e.count > 0
 				return e
 			return 0
 		}

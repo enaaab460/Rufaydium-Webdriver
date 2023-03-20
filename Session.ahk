@@ -170,7 +170,7 @@
 				e.InsertAt(k-1,Element(this.address "/element/" elementid, i))
 		}
 
-		if e.count() > 0
+		if e.count > 0
 			return e
 		return 0
 	}
