@@ -82,14 +82,14 @@
 
 	findelements(u,v)
 	{
-		e := []
+		e := Map()
 		for k, elements in this.Send("elements","POST",map("using",u,"value",v),1)
 		{
 			for i, elementid in elements
 			{
 				address := RegExReplace(this.address "/element/" elementid,"(\/shadow\/.*)\/element","/element")
 				address := RegExReplace(address "/element/" elementid,"(\/element\/.*)\/element","/element")
-				e.InsertAt(k-1,Element(address,i))
+				e[k-1] := Element(address,i)
 			}
 		}
 
