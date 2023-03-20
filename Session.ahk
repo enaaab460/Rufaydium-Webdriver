@@ -103,6 +103,11 @@
 		get => this.Send("source","GET",0,1)
 	}
 
+	Title
+	{
+		get => this.Send("title","GET")
+	}
+
 	Cookies[CookieMAP]
 	{
 		get => this.Send("cookie","GET")
