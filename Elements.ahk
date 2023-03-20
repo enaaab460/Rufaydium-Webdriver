@@ -82,7 +82,7 @@
 
 	findelements(u,v)
 	{
-		e := []
+		e := Map()
 		for k, element in this.Send("elements","POST",map("using",u,"value",v),1)
 		{
 			for i, elementid in element
@@ -93,7 +93,7 @@
 			}
 		}
 
-		if e.count() > 0
+		if e.count > 0
 			return e
 		return 0
 	}
@@ -128,7 +128,7 @@
 	{
 		get
 		{	
-			e := []
+			e := Map()
 			for k, element in this.Execute("return arguments[0].children")
 			{
 				for i, elementid in element
@@ -138,7 +138,7 @@
 					e[k-1] := Element(address,i)
 				}
 			}
-			if e.count() > 0
+			if e.Count > 0
 				return e
 			return 0
 		}

@@ -163,14 +163,14 @@
 
 	findelements(u,v)
 	{
-		e := []
+		e := Map()
 		for k, element in this.Send("elements","POST",map("using",u,"value",v),1)
 		{
 			for i, elementid in element
 				e[k-1] := Element(this.address "/element/" elementid,i)
 		}
 
-		if e.count() > 0
+		if e.Count > 0
 			return e
 		return 0
 	}
