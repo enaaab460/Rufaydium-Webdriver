@@ -93,7 +93,7 @@
 			}
 		}
 
-		if e.Length > 0
+		if e.Count > 0
 			return e
 		return 0
 	}
