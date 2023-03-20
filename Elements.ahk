@@ -93,7 +93,7 @@
 			}
 		}
 
-		if e.count > 0
+		if e.Length > 0
 			return e
 		return 0
 	}
@@ -138,7 +138,7 @@
 					e[k-1] := Element(address,i)
 				}
 			}
-			if e.count > 0
+			if e.Length > 0
 				return e
 			return 0
 		}
