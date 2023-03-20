@@ -82,13 +82,8 @@
 
 	findelements(u,v)
 	{
-<<<<<<< HEAD
-		e := Map()
-		for k, element in this.Send("elements","POST",map("using",u,"value",v),1)
-=======
 		e := []
 		for k, elements in this.Send("elements","POST",map("using",u,"value",v),1)
->>>>>>> b7bd1632fcecf61190d74f1242ab59310c536caf
 		{
 			for i, elementid in elements
 			{
@@ -98,11 +93,7 @@
 			}
 		}
 
-<<<<<<< HEAD
-		if e.count > 0
-=======
 		if e.Length > 0
->>>>>>> b7bd1632fcecf61190d74f1242ab59310c536caf
 			return e
 		return 0
 	}
