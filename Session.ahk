@@ -164,10 +164,10 @@
 	findelements(u,v)
 	{
 		e := Map()
-		for k, element in this.Send("elements","POST",map("using",u,"value",v),1)
+		for k, elements in this.Send("elements","POST",map("using",u,"value",v),1)
 		{
-			for i, elementid in element
-				e[k-1] := Element(this.address "/element/" elementid,i)
+			for i, elementid in elements
+				e.InsertAt(k-1,Element(this.address "/element/" elementid, i))
 		}
 
 		if e.Count > 0
